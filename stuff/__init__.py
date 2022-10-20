@@ -7,8 +7,14 @@ from boto3 import client
 from stuff.auth import requirequartermaster, require_read_key
 from stuff.database import *
 from stuff.item import Item, EditItem
+from stuff import utility
+
 
 app = Flask(__name__)
+
+if utility.is_app_debugging(app):
+    utility.verify_environment(print_results=True)
+
 app.config.update(
     PREFERRED_URL_SCHEME = environ.get('URL_SCHEME', 'https'),
     SECRET_KEY = environ['SECRET_KEY'],
